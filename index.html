@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <style>
+         body {
+            height: 100vh;
+            margin: 0;
+            background-color: white;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 36px;
+            text-align: center;
+            color: black;
+            justify-content: center;
+        }
+        .containerdois {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            font-size: 24px;
+            text-align: center;
+            color: black;
+            height: 504px;
+            width: 504px;
+            border: 1px solid #0e0d0d;
+            justify-content: center;
+        }
+        .item {
+            width: calc(100% / 16 - 1px); /* Corrigindo a sintaxe aqui */
+            height: calc(100% / 16 - 1px);
+            background-color: greenyellow;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <meta charset="utf-8">
+    <title>Quadrados coloridos</title>
+</head>
+<body>
+    <div class="container">Pintando uma grade</div>
+    <div class="container">
+        <input type="text" placeholder="Tamanho da Grade">
+        <button onclick="Mudar()">Confirmar</button>
+    </div>
+    <div class="container">
+        <div class="containerdois"></div>
+    </div>
+    <script>
+        const grid = document.querySelector(".containerdois");
+        let tam = 16;
+        Grade(16);
+        function Grade(tam) {
+            grid.innerHTML = '';
+            for (let i = 0; i < tam * tam; i++) {
+                const quadrado = document.createElement('div');
+                quadrado.classList.add('item');
+                grid.appendChild(quadrado);
+
+                let larg = (500/tam -2)
+                quadrado.style.width = `${larg}px`;
+                quadrado.style.height = `${larg}px`;
+
+                quadrado.addEventListener('mouseenter', function () {
+                    this.style.backgroundColor = mudarCor();
+                });
+            }
+        }
+
+        function mudarCor() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        function Mudar() {
+            const input = document.querySelector('input');
+            tam = Number(input.value);// Limpa os quadrados existentes antes de criar novos
+            Grade(tam);
+        }
+
+    </script>
+</body>
+</html>
